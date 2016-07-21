@@ -15,7 +15,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import hugo.weaving.DebugLog;
 import io.agileninja.nearbypizza.databinding.ActivityMainBinding;
 import io.agileninja.nearbypizza.model.ResultsModel;
 import io.agileninja.nearbypizza.network.NetworkCallback;
@@ -30,25 +29,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locationManager;
     private String provider;
 
-    @DebugLog
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+//        setSupportActionBar(binding.toolbar);
+//        binding.collapsingToolbar.setTitle(getString(R.string.places_title));
         checkPermissionsAndInitiateService();
     }
 
     private void getPlaces(double latitude, double longitude) {
         PizzaPlacesService service = new PizzaPlacesService(new YQLClient());
         service.getPizzaPlaces(latitude, longitude, new NetworkCallback<ResultsModel>() {
-            @DebugLog
+
             @Override
             public void onSuccess(ResultsModel response) {
-                binding.placesView.setPlaces(new PizzaPlacesViewModel (response));
+                binding.setPlaces(new PizzaPlacesViewModel (response));
             }
 
-            @DebugLog
+
             @Override
             public void onError(String header, String message) {
                 new AlertDialog.Builder(MainActivity.this)
@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
     }
 
-    @DebugLog
+
+
     private void checkPermissionsAndInitiateService() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    @DebugLog
+
     private void requestPermissions() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    @DebugLog
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationManager.requestLocationUpdates(provider, 400, 1, this);
     }
 
-    @DebugLog
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationManager.removeUpdates(this);
     }
 
-    @DebugLog
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    @DebugLog
+
     @Override
     public void onLocationChanged(Location location) {
 

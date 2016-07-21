@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">NearbyPizza</string>
 
+    <string name="places_title">Nearby Pizza Places</string>
     <string name="formatCityState">%1$s, %2$s</string>
     <string name="formatDistance">%s mi</string>
     <string name="permission_location_request">Application requires permission to access location to find nearby pizza places.</string>
     <string name="location_unavailable">Location unavailable.</string>
     <string name="ok">OK</string>
+
+    <string name="button_map">View Map</string>
+    <string name="button_call">Call</string>
 </resources>

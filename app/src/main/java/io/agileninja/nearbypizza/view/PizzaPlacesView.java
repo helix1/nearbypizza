@@ -1,16 +1,20 @@
 package io.agileninja.nearbypizza.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import io.agileninja.nearbypizza.PlaceDetailsActivity;
 import io.agileninja.nearbypizza.R;
 import io.agileninja.nearbypizza.databinding.ViewPizzaPlaceBinding;
+import io.agileninja.nearbypizza.util.Constant;
 import io.agileninja.nearbypizza.viewmodel.PizzaPlacesViewModel;
 
 
@@ -70,13 +74,21 @@ public class PizzaPlacesView extends RecyclerView {
             return places == null ? 0 : places.getNumberOfPlaces();
         }
 
-        class PizzaPlaceViewHolder extends ViewHolder {
+        class PizzaPlaceViewHolder extends ViewHolder implements OnClickListener {
 
             ViewPizzaPlaceBinding binding;
 
             public PizzaPlaceViewHolder(ViewPizzaPlaceBinding binding) {
                 super(binding.getRoot());
                 this.binding = binding;
+                binding.getRoot().setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), PlaceDetailsActivity.class);
+                intent.putExtra(Constant.BUNDLE_PLACE_MODEL, binding.getPlace().getModel());
+                view.getContext().startActivity(intent);
             }
         }
     }

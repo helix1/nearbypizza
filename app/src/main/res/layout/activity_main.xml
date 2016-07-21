@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
+
         <variable
             name="places"
             type="io.agileninja.nearbypizza.viewmodel.PizzaPlacesViewModel"
             />
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.agileninja.nearbypizza.MainActivity"
         >
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/places_title"
+                    app:layout_collapseMode="pin"
+                    >
+
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
 
         <io.agileninja.nearbypizza.view.PizzaPlacesView
             android:id="@+id/placesView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:places="@{places}"
-            app:layout_constraintBottom_toBottomOf="@+id/activity_main"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
-            app:layout_constraintRight_toRightOf="@+id/activity_main"
-            app:layout_constraintTop_toTopOf="@+id/activity_main"
             />
+
         <TextView
+            style="@style/errorMessage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/permission_location_request"
-            style="@style/errorMessage"
             android:visibility="gone"
             />
-    </android.support.constraint.ConstraintLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

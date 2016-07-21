@@ -24,12 +24,21 @@ public class PizzaPlaceModel implements Parcelable {
     private RatingModel rating;
     @SerializedName("Distance")
     private String distance;
-//    @SerializedName("Categories")
-//    private CategoriesModel categories;
+    @SerializedName("Latitude")
+    private double latitude;
+    @SerializedName("Longitude")
+    private double longitude;
+    @SerializedName("ClickUrl")
+    private String url;
+    @SerializedName("MapUrl")
+    private String mapUrl;
+    @SerializedName("BusinessClickUrl")
+    private String businessUrl;
 
     public PizzaPlaceModel(String id, String title, String address, String city, String state,
                            String phoneNumber, RatingModel rating, String distance,
-                           CategoriesModel categories) {
+                           double latitude, double longitude, String url, String mapUrl,
+                           String businessUrl) {
         this.id = id;
         this.title = title;
         this.address = address;
@@ -38,7 +47,11 @@ public class PizzaPlaceModel implements Parcelable {
         this.phoneNumber = phoneNumber;
         this.rating = rating;
         this.distance = distance;
-//        this.categories = categories;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.url = url;
+        this.mapUrl = mapUrl;
+        this.businessUrl = businessUrl;
     }
 
     public String getId() {
@@ -73,10 +86,25 @@ public class PizzaPlaceModel implements Parcelable {
         return distance;
     }
 
-//    public CategoriesModel getCategories() {
-//        return categories;
-//    }
+    public double getLatitude() {
+        return latitude;
+    }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getMapUrl() {
+        return mapUrl;
+    }
+
+    public String getBusinessUrl() {
+        return businessUrl;
+    }
 
     @Override
     public int describeContents() {
@@ -93,7 +121,11 @@ public class PizzaPlaceModel implements Parcelable {
         dest.writeString(this.phoneNumber);
         dest.writeParcelable(this.rating, flags);
         dest.writeString(this.distance);
-//        dest.writeParcelable(this.categories, flags);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
+        dest.writeString(this.url);
+        dest.writeString(this.mapUrl);
+        dest.writeString(this.businessUrl);
     }
 
     private PizzaPlaceModel(Parcel in) {
@@ -105,7 +137,11 @@ public class PizzaPlaceModel implements Parcelable {
         this.phoneNumber = in.readString();
         this.rating = in.readParcelable(RatingModel.class.getClassLoader());
         this.distance = in.readString();
-//        this.categories = in.readParcelable(CategoryModel.class.getClassLoader());
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
+        this.url = in.readString();
+        this.mapUrl = in.readString();
+        this.businessUrl = in.readString();
     }
 
     public static final Parcelable.Creator<PizzaPlaceModel> CREATOR =
